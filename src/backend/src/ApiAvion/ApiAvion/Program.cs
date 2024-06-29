@@ -5,6 +5,7 @@ using ApiAvion.Interfaces;
 using ApiAvion.Interfaces.Services;
 using ApiAvion.Mappings;
 using ApiAvion.Repositories.Aviones;
+using ApiAvion.Repositories.Usuarios;
 using ApiAvion.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +53,9 @@ builder.Services.AddDbContext<ContextDb>(options =>
 });
 builder.Services.AddScoped<IAvionesRepository, AvionesRepository>();
 builder.Services.AddScoped<IAvionesService, AvionesServices>();
+
+builder.Services.AddScoped<IUsuariosRespository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
