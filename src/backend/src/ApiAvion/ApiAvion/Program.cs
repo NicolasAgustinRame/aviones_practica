@@ -1,10 +1,16 @@
 using System.Text;
 using ApiAvion.Data;
+using ApiAvion.Context;
+using ApiAvion.Interfaces;
+using ApiAvion.Interfaces.Services;
 using ApiAvion.Mappings;
+using ApiAvion.Repositories.Aviones;
+using ApiAvion.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ContextDb = ApiAvion.Context.ContextDb;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -44,6 +50,9 @@ builder.Services.AddDbContext<ContextDb>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConexionDb"));
 });
+builder.Services.AddScoped<IAvionesRepository, AvionesRepository>();
+builder.Services.AddScoped<IAvionesService, AvionesServices>();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
