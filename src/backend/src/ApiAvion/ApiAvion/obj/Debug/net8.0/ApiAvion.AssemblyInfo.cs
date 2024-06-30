@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiAvion")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e888360694f9b37916257810017c3320fb50b36c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53ef10beaf97c7159de5938006c2df4535a0755e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiAvion")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiAvion")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

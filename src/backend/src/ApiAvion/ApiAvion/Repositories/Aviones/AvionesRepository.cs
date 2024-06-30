@@ -22,6 +22,13 @@ public class AvionesRepository : IAvionesRepository
         return aviones;
     }
 
+    public async Task<Avione> GetById(Guid id)
+    {
+        var avion = await _contextDb.Aviones
+            .FirstOrDefaultAsync(a => a.Id == id);
+        return avion;
+    }
+
     public async Task<Avione> GetByParams()
     {
         var avion = await _contextDb.Aviones
@@ -38,5 +45,23 @@ public class AvionesRepository : IAvionesRepository
             .Where(a => a.IdFabricanteNavigation.Nombre == "Boeing" || a.IdFabricanteNavigation.Nombre == "Airbus")
             .ToListAsync();
         return aviones;
-    }   
+    }
+
+    public async Task<Avione> PutAvion(Avione avione)
+    {
+        var avion = await _contextDb.Aviones
+            .Include(a => a.IdFabricanteNavigation)
+            .FirstOrDefaultAsync(a => a.Id == avione.Id);
+
+        avion.Id = avione.Id;
+        avion.Modelo = avione.Modelo;
+        avion.CantidadAsientos = avione.CantidadAsientos;
+        avion.CantidadMotores = avione.CantidadMotores;
+        avion.DatosVarios = avione.DatosVarios;
+
+        _contextDb.Update(avion);
+        _contextDb.SaveChanges();
+
+        return avion;
+    }
 }

@@ -3,6 +3,7 @@ using ApiAvion.Dtos;
 using ApiAvion.Interfaces;
 using ApiAvion.Interfaces.Services;
 using ApiAvion.Migrations;
+using ApiAvion.Querys;
 using ApiAvion.Response;
 using AutoMapper;
 
@@ -60,6 +61,30 @@ public class AvionesServices : IAvionesService
             response.Data = _mapper.Map<List<AvionesDto>>(aviones);
            
         }
+        return response;
+    }
+
+    public async Task<ApiResponse<AvionesDto>> PutAvion(UpdateAvionQuery avionQuery)
+    {
+        var response = new ApiResponse<AvionesDto>();
+        var avion = await _avionesRepository.GetById(avionQuery.Id);
+        if (avion == null)
+        {
+            response.SetError("No existe este avion", HttpStatusCode.NotFound);
+            return response;
+        }
+
+        var updateAvion = new Avione()
+        {
+            Id = avionQuery.Id,
+            Modelo = avionQuery.Modelo,
+            CantidadAsientos = avionQuery.CantidadAsientos,
+            CantidadMotores = avionQuery.Motores,
+            DatosVarios = avionQuery.DatosVarios
+        };
+
+        updateAvion = await _avionesRepository.PutAvion(updateAvion);
+        response.Data = _mapper.Map<AvionesDto>(updateAvion);
         return response;
     }
 }
